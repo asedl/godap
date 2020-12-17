@@ -59,6 +59,8 @@ func ParseLDAPSimpleSearchRequestPacket(p *ber.Packet) (*LDAPSimpleSearchRequest
 			ret := ""
 			if p.Value != nil {
 				ret = fmt.Sprint(p.Value)
+			} else if len(p.Children) == 0 && p.Data.Len() > 0 {
+				ret = fmt.Sprint(p.Data)
 			}
 			for _, child := range p.Children {
 				childVal := getContextValue(child)
